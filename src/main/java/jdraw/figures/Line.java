@@ -18,8 +18,8 @@ public class Line implements Figure {
 	private Line2D line;
 	private List<FigureListener> listeners;
 
-	public Line(int x, int y, int w, int h) {
-		line = new Line2D.Double(x, y, w, h);
+	public Line(int x, int y) {
+		line = new Line2D.Double(x, y, x, y);
 		listeners = new CopyOnWriteArrayList<>();
 	}
 
