@@ -17,8 +17,8 @@ import javax.swing.filechooser.FileFilter;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat.DTD;
 
 import jdraw.figures.LineTool;
-import jdraw.figures.EllipseTool;
-import jdraw.figures.RectTool;
+import jdraw.figures.ellipse.EllipseTool;
+import jdraw.figures.rect.RectTool;
 import jdraw.framework.DrawCommandHandler;
 import jdraw.framework.DrawModel;
 import jdraw.framework.DrawTool;

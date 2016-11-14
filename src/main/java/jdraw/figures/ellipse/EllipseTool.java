@@ -3,7 +3,7 @@
  * All Rights Reserved. 
  */
 
-package jdraw.figures;
+package jdraw.figures.ellipse;
 
 import java.awt.Cursor;
 import java.awt.Point;

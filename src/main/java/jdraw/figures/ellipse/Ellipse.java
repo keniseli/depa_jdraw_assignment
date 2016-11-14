@@ -1,4 +1,4 @@
-package jdraw.figures;
+package jdraw.figures.ellipse;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -17,10 +18,16 @@ import jdraw.framework.FigureListener;
 public class Ellipse implements Figure {
 	private Ellipse2D.Double ellipse;
 	private List<FigureListener> listeners;
+	private List<FigureHandle> handles;
 
 	public Ellipse(int x, int y, int w, int h) {
 		ellipse = new Ellipse2D.Double(x, y, w, h);
 		listeners = new CopyOnWriteArrayList<>();
+		handles = new ArrayList<>();
+		handles.add(new EllipseWestHandle(this));
+		handles.add(new EllipseEastHandle(this));
+		handles.add(new EllipseNorthHandle(this));
+		handles.add(new EllipseSouthHandle(this));
 	}
 
 	@Override
@@ -40,6 +47,10 @@ public class Ellipse implements Figure {
 	public void setBounds(Point origin, Point corner) {
 		ellipse.setFrameFromDiagonal(origin, corner);
 		notifyListeners();
+	}
+
+	public void resize(int fromX, int fromY, int toX, int toY) {
+		ellipse.setFrame(fromX, fromY, toX - fromX, toY - fromY);
 	}
 
 	@Override
@@ -66,7 +77,7 @@ public class Ellipse implements Figure {
 
 	@Override
 	public List<FigureHandle> getHandles() {
-		return null;
+		return handles;
 	}
 
 	@Override

@@ -3,12 +3,13 @@
  * All Rights Reserved. 
  */
 
-package jdraw.figures;
+package jdraw.figures.rect;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,6 +30,7 @@ public class Rect implements Figure {
 	 */
 	private java.awt.Rectangle rectangle;
 	private List<FigureListener> listeners;
+	private List<FigureHandle> handles;
 
 	/**
 	 * Create a new rectangle of the given dimension.
@@ -45,6 +47,8 @@ public class Rect implements Figure {
 	public Rect(int x, int y, int w, int h) {
 		rectangle = new java.awt.Rectangle(x, y, w, h);
 		listeners = new CopyOnWriteArrayList<>();
+		handles = new ArrayList<FigureHandle>();
+		handles.add(new RectWestRectHandle(this));
 	}
 
 	/**
@@ -94,7 +98,7 @@ public class Rect implements Figure {
 	 */
 	@Override
 	public List<FigureHandle> getHandles() {
-		return null;
+		return handles;
 	}
 
 	@Override
@@ -117,5 +121,18 @@ public class Rect implements Figure {
 			FigureEvent event = new FigureEvent(this);
 			listener.figureChanged(event);
 		});
+	}
+
+	public void resize(int fromX, int fromY, int toX, int toY) {
+		int width = toX - fromX;
+		int height = toY - fromY;
+
+		Rectangle bounds = new Rectangle();
+		bounds.x = width > 0 ? fromX : toX;
+		bounds.y = height > 0 ? fromY : toY;
+		bounds.width = Math.abs(width);
+		bounds.height = Math.abs(height);
+		rectangle.setBounds(bounds);
+		notifyListeners();
 	}
 }
