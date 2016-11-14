@@ -48,6 +48,7 @@ public class Rect implements Figure {
 		rectangle = new java.awt.Rectangle(x, y, w, h);
 		listeners = new CopyOnWriteArrayList<>();
 		handles = new ArrayList<FigureHandle>();
+		handles.add(new RectEastRectHandle(this));
 		handles.add(new RectWestRectHandle(this));
 	}
 
