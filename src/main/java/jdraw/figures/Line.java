@@ -10,17 +10,13 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import jdraw.framework.Figure;
-import jdraw.framework.FigureEvent;
 import jdraw.framework.FigureHandle;
-import jdraw.framework.FigureListener;
 
-public class Line implements Figure {
+public class Line extends AbstractFigure implements Figure {
 	private Line2D line;
-	private List<FigureListener> listeners;
-
 	public Line(int x, int y) {
+		super();
 		line = new Line2D.Double(x, y, x, y);
-		listeners = new CopyOnWriteArrayList<>();
 	}
 
 	@Override
@@ -66,24 +62,7 @@ public class Line implements Figure {
 	}
 
 	@Override
-	public void addFigureListener(FigureListener listener) {
-		listeners.add(listener);
-	}
-
-	@Override
-	public void removeFigureListener(FigureListener listener) {
-		listeners.remove(listener);
-	}
-
-	@Override
 	public Figure clone() {
 		return null;
-	}
-
-	private void notifyListeners() {
-		listeners.forEach(listener -> {
-			FigureEvent event = new FigureEvent(this);
-			listener.figureChanged(event);
-		});
 	}
 }

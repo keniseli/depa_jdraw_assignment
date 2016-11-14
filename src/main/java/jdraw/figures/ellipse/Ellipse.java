@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import jdraw.figures.AbstractFigure;
 import jdraw.framework.Figure;
 import jdraw.framework.FigureEvent;
 import jdraw.framework.FigureHandle;
 import jdraw.framework.FigureListener;
 
-public class Ellipse implements Figure {
+public class Ellipse extends AbstractFigure implements Figure {
 	private Ellipse2D.Double ellipse;
-	private List<FigureListener> listeners;
 	private List<FigureHandle> handles;
 
 	public Ellipse(int x, int y, int w, int h) {
+		super();
 		ellipse = new Ellipse2D.Double(x, y, w, h);
-		listeners = new CopyOnWriteArrayList<>();
 		handles = new ArrayList<>();
 		handles.add(new EllipseWestHandle(this));
 		handles.add(new EllipseEastHandle(this));
@@ -81,24 +81,8 @@ public class Ellipse implements Figure {
 	}
 
 	@Override
-	public void addFigureListener(FigureListener listener) {
-		listeners.add(listener);
-	}
-
-	@Override
-	public void removeFigureListener(FigureListener listener) {
-		listeners.remove(listener);
-	}
-
-	@Override
 	public Figure clone() {
 		return null;
 	}
 
-	private void notifyListeners() {
-		listeners.forEach(listener -> {
-			FigureEvent event = new FigureEvent(this);
-			listener.figureChanged(event);
-		});
-	}
 }

@@ -18,7 +18,7 @@ import java.util.List;
  * @author  Dominik Gruntz &amp; Christoph Denzler
  * @version 2.5
  */
-public interface Figure extends Serializable, Cloneable {
+public interface Figure extends Serializable, Cloneable, FigureGroup {
 	
 	/**
 	 * draw is called when the figure has to be drawn.
@@ -107,4 +107,5 @@ public interface Figure extends Serializable, Cloneable {
 	 * @return clone of figure
 	 */
 	Figure clone();
+	
 }

@@ -65,6 +65,11 @@ public class DrawModelTest {
 		public Figure clone() {
 			return null;
 		}
+
+		@Override
+		public Iterable<Figure> getFigureParts() {
+			return new LinkedList<>();
+		}
 	}
 
 	private DrawModel m;

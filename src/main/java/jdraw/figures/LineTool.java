@@ -31,7 +31,7 @@ public class LineTool implements DrawTool {
 
 	private DrawView view;
 
-	private Line newLine = null;
+	private AbstractFigure newLine = null;
 
 	private Point anchor = null;
 

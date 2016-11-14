@@ -11,12 +11,10 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
+import jdraw.figures.AbstractFigure;
 import jdraw.framework.Figure;
-import jdraw.framework.FigureEvent;
 import jdraw.framework.FigureHandle;
-import jdraw.framework.FigureListener;
 
 /**
  * Represents rectangles in JDraw.
@@ -24,12 +22,11 @@ import jdraw.framework.FigureListener;
  * @author Christoph Denzler
  *
  */
-public class Rect implements Figure {
+public class Rect extends AbstractFigure implements Figure {
 	/**
 	 * Use the java.awt.Rectangle in order to save/reuse code.
 	 */
 	private java.awt.Rectangle rectangle;
-	private List<FigureListener> listeners;
 	private List<FigureHandle> handles;
 
 	/**
@@ -45,8 +42,8 @@ public class Rect implements Figure {
 	 *            the rectangle's height
 	 */
 	public Rect(int x, int y, int w, int h) {
+		super();
 		rectangle = new java.awt.Rectangle(x, y, w, h);
-		listeners = new CopyOnWriteArrayList<>();
 		handles = new ArrayList<FigureHandle>();
 		handles.add(new RectEastRectHandle(this));
 		handles.add(new RectWestRectHandle(this));
@@ -103,25 +100,8 @@ public class Rect implements Figure {
 	}
 
 	@Override
-	public void addFigureListener(FigureListener listener) {
-		listeners.add(listener);
-	}
-
-	@Override
-	public void removeFigureListener(FigureListener listener) {
-		listeners.remove(listener);
-	}
-
-	@Override
 	public Figure clone() {
 		return null;
-	}
-
-	private void notifyListeners() {
-		listeners.forEach(listener -> {
-			FigureEvent event = new FigureEvent(this);
-			listener.figureChanged(event);
-		});
 	}
 
 	public void resize(int fromX, int fromY, int toX, int toY) {

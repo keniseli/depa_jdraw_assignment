@@ -14,9 +14,9 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat.DTD;
-
+import jdraw.figures.GroupTool;
 import jdraw.figures.LineTool;
+import jdraw.figures.UnGroupTool;
 import jdraw.figures.ellipse.EllipseTool;
 import jdraw.figures.rect.RectTool;
 import jdraw.framework.DrawCommandHandler;
@@ -173,6 +173,10 @@ public class StdContext extends AbstractContext {
 		addTool(ellipseTool);
 		DrawTool lineTool = new LineTool(this);
 		addTool(lineTool);
+		DrawTool groupTool = new GroupTool(this);
+		addTool(groupTool);
+		DrawTool unGroupTool = new UnGroupTool(this);
+		addTool(unGroupTool);
 	}
 
 	/**
