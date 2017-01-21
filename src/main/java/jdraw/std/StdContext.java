@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.filechooser.FileFilter;
 
+import jdraw.constrainer.Grid20Constrainer;
 import jdraw.figures.GroupTool;
 import jdraw.figures.LineTool;
 import jdraw.figures.UnGroupTool;
@@ -131,9 +132,17 @@ public class StdContext extends AbstractContext {
 		editMenu.add(orderMenu);
 
 		JMenu grid = new JMenu("Grid...");
-		grid.add("Grid 1");
+		JMenuItem grid20 = new JMenuItem("Grid 20");
+		grid20.addActionListener(e -> {
+			getView().setConstrainer(new Grid20Constrainer());
+		});
+		grid.add(grid20);
 		grid.add("Grid 2");
-		grid.add("Grid 3");
+		JMenuItem noGrid = new JMenuItem("No Grid");
+		noGrid.addActionListener(e->{
+			getView().setConstrainer(null);
+		});
+		grid.add(noGrid);
 		editMenu.add(grid);
 		
 		return editMenu;
